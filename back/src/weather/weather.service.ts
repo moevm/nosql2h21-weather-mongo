@@ -18,4 +18,16 @@ export class WeatherService {
   async findAll(): Promise<Weather[]> {
     return this.weatherModel.find().exec();
   }
+
+  async fillAnnual() {
+    
+  }
+
+  async fillMonthly() {
+    
+  }
+
+  async fillDaily() {
+    
+  }
 }

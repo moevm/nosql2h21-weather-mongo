@@ -1,7 +1,5 @@
+import { Region } from "../schemas/region.schemas";
+
 export class CreateWeatherDto {
-    readonly humidity: number;
-    readonly temperature: number;
-    readonly isRainy: boolean;
-    readonly isCloudly: boolean;
-  }
-  
+    readonly region: Region[]
+}

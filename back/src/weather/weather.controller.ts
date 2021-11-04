@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Put } from '@nestjs/common';
 import { WeatherService } from './weather.service';
 import { CreateWeatherDto } from './dto/create-weather.dto';
 import { Weather } from './schemas/weather.schema';
@@ -16,4 +16,10 @@ export class WeatherController {
   async findAll(): Promise<Weather[]> {
     return this.weatherService.findAll();
   }
+
+  @Put()
+  async fillMonthly(): Promise<Weather[]> {
+    return this.weatherService.findAll();
+  }
+
 }
