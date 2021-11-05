@@ -22,7 +22,60 @@ export class Weather {
   season: number
 
   @Prop()
-  climate_variables: ClimateFull
+  tasmax: number
+  
+  @Prop()
+  tasmin: number
+  
+  @Prop()
+  tas: number
+  
+  @Prop()
+  rainfall: number
+  
+  @Prop()
+  sun: number
+
+  @Prop()
+  sfcWind: number
+  
+  @Prop()
+  psl: number
+  
+  @Prop()
+  hurs: number
+  
+  @Prop()
+  pv: number
+  
+  @Prop()
+  groundfrost: number
+  
+  @Prop()
+  snowLying: number
+
+  // @Prop()
+  // climate_variables: ClimateFull
 }
 
 export const WeatherSchema = SchemaFactory.createForClass(Weather);
+/*
+{    
+region: number
+year: number
+month?: number
+day?: number
+season?: number
+tasmax: number
+tasmin: number
+rainfall: number
+tas?: number
+sun?: number
+sfcWind?: number
+psl?: number
+hurs?: number
+pv?: number
+groundfrost?: number
+snowLying?: number
+}
+*/
