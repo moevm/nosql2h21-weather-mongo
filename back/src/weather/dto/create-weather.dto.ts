@@ -1,5 +1,3 @@
-import { ClimateFull } from "../schemas/climateFull.schema";
-
 export class CreateWeatherDto {
   readonly region: number
   readonly year: number
