@@ -1,0 +1,81 @@
+{      
+    "_id": 4576879654,
+    "year": 2019,
+    "region": 1,
+      "tasmax": 12.0,
+      "tasmin": 2.0,
+      "tas": 7.0,
+      "rainfall": 664.798353434527,
+      "sun": 1498.7101420924307,
+      "sfcWind": 14.6789,
+      "psl": 1014.357119097454,
+      "hurs": 83.495420466501146,
+      "pv": 7.0879887765,
+      "groundfrost": 2345.0987653456,
+      "snowLying": 64.72326509446353
+}
+
+{
+    "year": 2019,
+    "region": 1,
+    "month": 1,
+    "climate_variables": {
+        "tasmax": 12.0,
+        "tasmin": 2.0,
+        "tas": 7.0,
+        "rainfall": 664.798353434527,
+        "sun": 1498.7101420924307,
+        "sfcWind": 14.6789,
+        "psl": 1014.357119097454,
+        "hurs": 83.495420466501146,
+        "pv": 7.0879887765,
+        "groundfrost": 2345.0987653456,
+        "snowLying": 64.72326509446353
+    }
+}
+      
+{
+    "year": 2019,
+    "region": 1,
+    "month": 1,
+    "day": 1,
+    "climate_variables": {
+    "tasmax": 10.0,
+    "tasmin": 0.0,
+    "rainfall": 664.798353434527
+    }
+}           
+
+{
+    "year": 2019,
+    "region": 1,
+    "month": 1,
+    "day": 2,
+    "climate_variables": {
+    "tasmax": 12.0,
+    "tasmin": 2.0,
+    "rainfall": 664.798353434527
+    }
+}
+
+{
+    "year": 2019,
+    "region": 1,
+    "season": 1,
+    "climate_variables": {
+        "tasmax": 12.0,
+        "tasmin": 2.0,
+        "tas": 7.0,
+        "rainfall": 664.798353434527,
+        "sun": 1498.7101420924307,
+        "sfcWind": 14.6789,
+        "psl": 1014.357119097454,
+        "hurs": 83.495420466501146,
+        "pv": 7.0879887765,
+        "groundfrost": 2345.0987653456,
+        "snowLying": 64.72326509446353
+    }
+}
+  
+  
+  

@@ -1,14 +1,28 @@
-{
-  "_id": 122445,
-  "regions": [
+{      
+  "_id": 4567654374,
+  "region": 1,
+  "regionName": "London",
+  "years": [
     {
-      "_id": 4567654374,
-      "region": 1,
-      "regionName": "London",
-      "years": [
+      "_id": 4570039654,
+      "year": 2019,
+      "climate_variables": {
+        "tasmax": 12.0,
+        "tasmin": 2.0,
+        "tas": 7.0,
+        "rainfall": 664.798353434527,
+        "sun": 1498.7101420924307,
+        "sfcWind": 14.6789,
+        "psl": 1014.357119097454,
+        "hurs": 83.495420466501146,
+        "pv": 7.0879887765,
+        "groundfrost": 2345.0987653456,
+        "snowLying": 64.72326509446353
+      },
+      "months": [
         {
-          "_id": 4570039654,
-          "year": 2019,
+          "_id": 4576879654,
+          "month": 1,
           "climate_variables": {
             "tasmax": 12.0,
             "tasmin": 2.0,
@@ -22,64 +36,45 @@
             "groundfrost": 2345.0987653456,
             "snowLying": 64.72326509446353
           },
-          "months": [
-            {
-              "_id": 4576879654,
-              "month": 1,
-              "climate_variables": {
-                "tasmax": 12.0,
-                "tasmin": 2.0,
-                "tas": 7.0,
-                "rainfall": 664.798353434527,
-                "sun": 1498.7101420924307,
-                "sfcWind": 14.6789,
-                "psl": 1014.357119097454,
-                "hurs": 83.495420466501146,
-                "pv": 7.0879887765,
-                "groundfrost": 2345.0987653456,
-                "snowLying": 64.72326509446353,
-                "days": [
-                      {
-                        "_id": 235465789,
-                        "day": 1,
-                        "climate_variables": {
-                          "tasmax": 10.0,
-                          "tasmin": 0.0,
-                          "rainfall": 664.798353434527
-                        }
-                      },
-                      {
-                        "_id": 235465710,
-                        "day": 2,
-                        "climate_variables": {
-                          "tasmax": 12.0,
-                          "tasmin": 2.0,
-                          "rainfall": 664.798353434527
-                        }
-                      }
-                ]
-              }
-            }
-          ],
-          "seasons": [
-            {
-              "_id": 4573333354,
-              "season": 1,
-              "climate_variables": {
-                "tasmax": 12.0,
-                "tasmin": 2.0,
-                "tas": 7.0,
-                "rainfall": 664.798353434527,
-                "sun": 1498.7101420924307,
-                "sfcWind": 14.6789,
-                "psl": 1014.357119097454,
-                "hurs": 83.495420466501146,
-                "pv": 7.0879887765,
-                "groundfrost": 2345.0987653456,
-                "snowLying": 64.72326509446353
-              }
-            }
-          ]
+          "days": [
+                  {
+                    "_id": 235465789,
+                    "day": 1,
+                    "climate_variables": {
+                      "tasmax": 10.0,
+                      "tasmin": 0.0,
+                      "rainfall": 664.798353434527
+                    }
+                  },
+                  {
+                    "_id": 235465710,
+                    "day": 2,
+                    "climate_variables": {
+                      "tasmax": 12.0,
+                      "tasmin": 2.0,
+                      "rainfall": 664.798353434527
+                    }
+                  }
+            ]
+          }
+      ],
+      "seasons": [
+        {
+          "_id": 4573333354,
+          "season": 1,
+          "climate_variables": {
+            "tasmax": 12.0,
+            "tasmin": 2.0,
+            "tas": 7.0,
+            "rainfall": 664.798353434527,
+            "sun": 1498.7101420924307,
+            "sfcWind": 14.6789,
+            "psl": 1014.357119097454,
+            "hurs": 83.495420466501146,
+            "pv": 7.0879887765,
+            "groundfrost": 2345.0987653456,
+            "snowLying": 64.72326509446353
+          }
         }
       ]
     }
