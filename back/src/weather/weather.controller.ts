@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Put } from '@nestjs/common';
+import { Body, Controller, Get, Post, Put, Query } from '@nestjs/common';
 import { WeatherService } from './weather.service';
 import { CreateWeatherDto } from './dto/create-weather.dto';
 import { Weather } from './schemas/weather.schema';
@@ -23,27 +23,27 @@ export class WeatherController {
   }
 
   @Get('/annual')
-  async getAnnualData(@Body() reqParamsDto: ReqParamsDto): Promise<Weather[]> {
+  async getAnnualData(@Query('param') param: string, @Body() reqParamsDto: ReqParamsDto): Promise<Weather[]> {
     console.log(reqParamsDto)
-    return this.weatherService.getAnnual(reqParamsDto);
+    return this.weatherService.getAnnual(param, reqParamsDto);
   }
   
   @Get('/seasonly')
-  async getSeasonlyData(@Body() reqParamsDto: ReqParamsDto): Promise<Weather[]> {
+  async getSeasonlyData(@Query('param') param: string, @Body() reqParamsDto: ReqParamsDto): Promise<Weather[]> {
     console.log(reqParamsDto)
-    return this.weatherService.getSeasonly(reqParamsDto);
+    return this.weatherService.getSeasonly(param, reqParamsDto);
   }
 
   @Get('/monthly')
-  async getMonthlyData(@Body() reqParamsDto: ReqParamsDto): Promise<Weather[]> {
+  async getMonthlyData(@Query('param') param: string, @Body() reqParamsDto: ReqParamsDto): Promise<Weather[]> {
     console.log(reqParamsDto)
-    return this.weatherService.getMonthly(reqParamsDto);
+    return this.weatherService.getMonthly(param, reqParamsDto);
   }
 
   @Get('/daily')
-  async getDailyData(@Body() reqParamsDto: ReqParamsDto): Promise<Weather[]> {
+  async getDailyData(@Query('param') param: string, @Body() reqParamsDto: ReqParamsDto): Promise<Weather[]> {
     console.log(reqParamsDto)
-    return this.weatherService.getDaily(reqParamsDto);
+    return this.weatherService.getDaily(param, reqParamsDto);
   }
 
   @Put('/import/annual')
