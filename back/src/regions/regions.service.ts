@@ -17,11 +17,11 @@ export class RegionsService {
   }
 
   async findAll(): Promise<Region[]> {
-    return this.regionModel.find().exec();
+    return this.regionModel.find({}, {_id: 0, __v: 0}).exec();
   }
 
   async findOne(id: number): Promise<Region> {
-    return this.regionModel.findOne({region: id}).exec();
+    return this.regionModel.findOne({region: id}, {_id: 0, __v: 0}).exec();
   }
 
   async fillRegions(fillRegionsDto: FillRegionsDto): Promise<Region> {
