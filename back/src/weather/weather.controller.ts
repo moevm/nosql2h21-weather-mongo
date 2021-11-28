@@ -22,25 +22,25 @@ export class WeatherController {
     return this.weatherService.findAll();
   }
 
-  @Get('/annual')
+  @Post('/annual')
   async getAnnualData(@Query('param') param: string, @Body() reqParamsDto: ReqParamsDto): Promise<Weather[]> {
     console.log(reqParamsDto)
     return this.weatherService.getAnnual(param, reqParamsDto);
   }
   
-  @Get('/seasonly')
+  @Post('/seasonly')
   async getSeasonlyData(@Query('param') param: string, @Body() reqParamsDto: ReqParamsDto): Promise<Weather[]> {
     console.log(reqParamsDto)
     return this.weatherService.getSeasonly(param, reqParamsDto);
   }
 
-  @Get('/monthly')
+  @Post('/monthly')
   async getMonthlyData(@Query('param') param: string, @Body() reqParamsDto: ReqParamsDto): Promise<Weather[]> {
     console.log(reqParamsDto)
     return this.weatherService.getMonthly(param, reqParamsDto);
   }
 
-  @Get('/daily')
+  @Post('/daily')
   async getDailyData(@Query('param') param: string, @Body() reqParamsDto: ReqParamsDto): Promise<Weather[]> {
     console.log(reqParamsDto)
     return this.weatherService.getDaily(param, reqParamsDto);
