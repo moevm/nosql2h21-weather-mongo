@@ -6,6 +6,7 @@ import { FillMonthlyDto } from './dto/fill-monthly.dto';
 import { FillAnnualDto } from './dto/fill-annual.dto';
 import { FillDailyDto } from './dto/fill-daily.dto';
 import { FillSeasonlyDto } from './dto/fill-seasonly.dto';
+import { ReqParamsDto } from './dto/reqParams.dto';
 
 @Controller('weather')
 export class WeatherController {
@@ -19,6 +20,30 @@ export class WeatherController {
   @Get()
   async findAll(): Promise<Weather[]> {
     return this.weatherService.findAll();
+  }
+
+  @Get('/annual')
+  async getAnnualData(@Body() reqParamsDto: ReqParamsDto): Promise<Weather[]> {
+    console.log(reqParamsDto)
+    return this.weatherService.getAnnual(reqParamsDto);
+  }
+  
+  @Get('/seasonly')
+  async getSeasonlyData(@Body() reqParamsDto: ReqParamsDto): Promise<Weather[]> {
+    console.log(reqParamsDto)
+    return this.weatherService.getSeasonly(reqParamsDto);
+  }
+
+  @Get('/monthly')
+  async getMonthlyData(@Body() reqParamsDto: ReqParamsDto): Promise<Weather[]> {
+    console.log(reqParamsDto)
+    return this.weatherService.getMonthly(reqParamsDto);
+  }
+
+  @Get('/daily')
+  async getDailyData(@Body() reqParamsDto: ReqParamsDto): Promise<Weather[]> {
+    console.log(reqParamsDto)
+    return this.weatherService.getDaily(reqParamsDto);
   }
 
   @Put('/import/annual')

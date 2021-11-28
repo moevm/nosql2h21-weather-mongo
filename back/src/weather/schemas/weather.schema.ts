@@ -52,29 +52,6 @@ export class Weather {
   
   @Prop()
   snowLying: number
-
-  // @Prop()
-  // climate_variables: ClimateFull
 }
 
 export const WeatherSchema = SchemaFactory.createForClass(Weather);
-/*
-{    
-region: number
-year: number
-month?: number
-day?: number
-season?: number
-tasmax: number
-tasmin: number
-rainfall: number
-tas?: number
-sun?: number
-sfcWind?: number
-psl?: number
-hurs?: number
-pv?: number
-groundfrost?: number
-snowLying?: number
-}
-*/
