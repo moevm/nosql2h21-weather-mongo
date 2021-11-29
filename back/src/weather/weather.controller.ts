@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Put, Query, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Get, Post, Put, Query, StreamableFile, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { WeatherService } from './weather.service';
 import { CreateWeatherDto } from './dto/create-weather.dto';
 import { Weather } from './schemas/weather.schema';
@@ -9,8 +9,9 @@ import { FillDailyDto } from './dto/fill-daily.dto';
 import { FillSeasonlyDto } from './dto/fill-seasonly.dto';
 import { ReqParamsDto } from './dto/reqParams.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { extname } from 'path';
+import { extname, join } from 'path';
 import * as fs from 'fs';
+import { exec, execSync } from 'child_process';
 
 @Controller('weather')
 export class WeatherController {
@@ -24,6 +25,13 @@ export class WeatherController {
   @Get()
   async findAll(): Promise<Weather[]> {
     return this.weatherService.findAll();
+  }
+
+  @Get('/export')
+  async exportData(): Promise<StreamableFile> {
+    execSync('mongoexport --uri=mongodb://mongodb/weatherdb --collection=weathers --out=uploads/db.json');
+    const file = fs.createReadStream(join(process.cwd(), 'uploads/db.json'));
+    return new StreamableFile(file)
   }
 
   @Post('/annual')

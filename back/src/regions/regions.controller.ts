@@ -1,13 +1,14 @@
-import { Body, Controller, Get, Post, Put, Query, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Get, Post, Put, Query, StreamableFile, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { RegionsService } from './regions.service';
 import { CreateRegionDto } from './dto/create-region.dto';
-import { extname } from 'path';
+import { extname, join } from 'path';
 import { Region } from './schemas/region.schema';
 import { diskStorage } from 'multer';
 
 import { FillRegionsDto } from './dto/fill-regions.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import * as fs from 'fs';
+import { execSync } from 'child_process';
 
 @Controller('region')
 export class RegionController {
@@ -23,6 +24,13 @@ export class RegionController {
     return this.regionsService.findAll();
   }
 
+  @Get('/export')
+  async exportData(): Promise<StreamableFile> {
+    execSync('mongoexport --uri=mongodb://mongodb/weatherdb --collection=weathers --out=uploads/regions.json');
+    const file = fs.createReadStream(join(process.cwd(), 'uploads/regions.json'));
+    return new StreamableFile(file)
+  }
+  
   @Get('/name')
   async findName(@Query('id') id: string): Promise<Region> {
     return this.regionsService.findOne(Number(id));
