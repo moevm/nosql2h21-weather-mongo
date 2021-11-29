@@ -1,11 +1,14 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { urlencoded, json } from 'express';
+import * as express from 'express';
+import { join } from 'path';
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors();
-  app.use(json({ limit: '5000mb' }));
-  app.use(urlencoded({ extended: true, limit: '5000mb' }));
+  app.use(express.static(join(process.cwd(), './uploads/')));
+  app.use(express.json({ limit: '500mb' }));
+  app.use(express.urlencoded({ extended: true, limit: '500mb' }));
   await app.listen(3000);
   console.log(`Application is running on: ${await app.getUrl()}`);
 }
