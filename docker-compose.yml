@@ -5,7 +5,21 @@ services:
     container_name: backend
     build: ./back
     ports:
-      - 3000:3000
+      - 3030:3030
+    depends_on:
+      - mongo
+
+
+
+  frontend:
+    container_name: frontend
+    build: ./front
+    ports:
+      - 8080:3000
+    depends_on:
+      - backend
+
+    
 
   mongo:
     container_name: mongodb
