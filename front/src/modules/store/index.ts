@@ -1,0 +1,130 @@
+import {action, makeAutoObservable} from "mobx"
+import {Region, Statistic, TimeIntervalType} from "../../services/model";
+import axios from "axios";
+import {GET_REGIONS_URL, GET_STATS_URL} from "../../services/urls";
+
+class WeatherStore {
+	regions: Region;
+	region: Region = {name: '', region: 0};
+	timeInterval: TimeIntervalType = TimeIntervalType.daily;
+	from: Date = new Date();
+	to: Date = new Date();
+	fromSeason: string = '';
+	toSeason: string = '';
+	stats: Statistic[];
+	table: string = '1';
+
+	constructor() {
+		makeAutoObservable(this);
+		this.setRegion = this.setRegion.bind(this);
+		this.setTimeInterval = this.setTimeInterval.bind(this);
+		this.setFrom = this.setFrom.bind(this);
+		this.setTo = this.setTo.bind(this);
+		this.setFromSeason = this.setFromSeason.bind(this);
+		this.setToSeason = this.setToSeason.bind(this);
+		this.setTable = this.setTable.bind(this);
+		this.getFilteredData = this.getFilteredData.bind(this);
+	}
+
+	async getRegions() {
+		const res = await axios.get(`${GET_REGIONS_URL}`);
+		this.regions = res.data;
+	}
+
+	getStatsCommon() {
+		let data = {};
+		if (this.timeInterval === TimeIntervalType.daily) {
+			data = {
+				"region": this.region.region,
+				"fromYear": this.from.getFullYear(),
+				"toYear": this.to.getFullYear(),
+				"fromDay": this.from.getDate(),
+				"toDay": this.to.getDate(),
+				"fromMonth": this.from.getMonth() + 1,
+				"toMonth": this.to.getMonth() + 1
+			};
+		} else if (this.timeInterval === TimeIntervalType.monthly) {
+			data = {
+				"region": this.region.region,
+				"fromYear": this.from.getFullYear(),
+				"toYear": this.to.getFullYear(),
+				"fromMonth": this.from.getMonth() + 1,
+				"toMonth": this.to.getMonth() + 1
+			};
+		} else if (this.timeInterval === TimeIntervalType.seasonly) {
+			data = {
+				"region": this.region.region,
+				"fromYear": this.from.getFullYear(),
+				"toYear": this.to.getFullYear(),
+				"fromSeason": parseInt(this.fromSeason),
+				"toSeason": parseInt(this.toSeason)
+			};
+		} else if (this.timeInterval === TimeIntervalType.annual) {
+			data = {
+				"region": this.region.region,
+				"fromYear": this.from.getFullYear(),
+				"toYear": this.to.getFullYear(),
+			};
+		}
+		return data;
+	}
+
+	async getFilteredData(filter) {
+		const period = Object.keys(TimeIntervalType)[Object.values(TimeIntervalType).indexOf(this.timeInterval)];
+		const data = this.getStatsCommon();
+
+		if (Object.keys(filter).length !== 0) {
+			const filteredData = {
+				...data,
+				...filter
+			};
+			const res = await axios.post(`${GET_STATS_URL}/${period}`, filteredData);
+			this.stats = res.data;
+		}
+	}
+
+
+	async getStats() {
+		const period = Object.keys(TimeIntervalType)[Object.values(TimeIntervalType).indexOf(this.timeInterval)];
+		const data = this.getStatsCommon();
+		const res = await axios.post(`${GET_STATS_URL}/${period}`, data);
+		this.stats = res.data;
+	}
+
+	@action
+	setRegion(region: Region) {
+		this.region = region;
+	}
+
+	@action
+	setTable(table: string) {
+		this.table = table;
+	}
+
+	@action
+	setTimeInterval(timeInterval: TimeIntervalType) {
+		this.timeInterval = timeInterval;
+	}
+
+	@action
+	setFrom(from: Date) {
+		this.from = from;
+	}
+
+	@action
+	setTo(to: Date) {
+		this.to = to;
+	}
+
+	@action
+	setFromSeason(fromSeason: string) {
+		this.fromSeason = fromSeason;
+	}
+
+	@action
+	setToSeason(toSeason: string) {
+		this.toSeason = toSeason;
+	}
+}
+
+export default WeatherStore;
