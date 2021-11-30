@@ -6,16 +6,52 @@ export type WeatherDocument = Weather & Document;
 @Schema()
 export class Weather {    
   @Prop()
-  humidity: number;
+  region: number
 
   @Prop()
-  temperature: number;
+  year: number
 
   @Prop()
-  isRainy: boolean;
+  month: number
 
   @Prop()
-  isCloudly: boolean;
+  day: number
+
+  @Prop()
+  season: number
+
+  @Prop()
+  tasmax: number
+  
+  @Prop()
+  tasmin: number
+  
+  @Prop()
+  tas: number
+  
+  @Prop()
+  rainfall: number
+  
+  @Prop()
+  sun: number
+
+  @Prop()
+  sfcWind: number
+  
+  @Prop()
+  psl: number
+  
+  @Prop()
+  hurs: number
+  
+  @Prop()
+  pv: number
+  
+  @Prop()
+  groundfrost: number
+  
+  @Prop()
+  snowLying: number
 }
 
 export const WeatherSchema = SchemaFactory.createForClass(Weather);
