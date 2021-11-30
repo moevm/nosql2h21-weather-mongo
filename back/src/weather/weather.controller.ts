@@ -59,7 +59,7 @@ export class WeatherController {
   }
 
   @Put('/import/annual')
-  @UseInterceptors(FileInterceptor('data', {
+  @UseInterceptors(FileInterceptor('file', {
     storage: diskStorage({
       destination: './uploads'
       , filename: (req, file, cb) => {
@@ -75,7 +75,7 @@ export class WeatherController {
   }
 
   @Put('/import/seasonly')
-  @UseInterceptors(FileInterceptor('data', {
+  @UseInterceptors(FileInterceptor('file', {
     storage: diskStorage({
       destination: './uploads'
       , filename: (req, file, cb) => {
@@ -91,7 +91,7 @@ export class WeatherController {
   }
 
   @Put('/import/monthly')
-  @UseInterceptors(FileInterceptor('data', {
+  @UseInterceptors(FileInterceptor('file', {
     storage: diskStorage({
       destination: './uploads'
       , filename: (req, file, cb) => {
@@ -107,7 +107,7 @@ export class WeatherController {
   }
 
   @Put('/import/daily')
-  @UseInterceptors(FileInterceptor('data', {
+  @UseInterceptors(FileInterceptor('file', {
     storage: diskStorage({
       destination: './uploads'
       , filename: (req, file, cb) => {

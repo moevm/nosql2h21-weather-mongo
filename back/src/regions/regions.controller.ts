@@ -37,7 +37,7 @@ export class RegionController {
   }
 
   @Put('/import')
-  @UseInterceptors(FileInterceptor('data', {
+  @UseInterceptors(FileInterceptor('file', {
     storage: diskStorage({
       destination: './uploads'
       , filename: (req, file, cb) => {

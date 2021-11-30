@@ -1,7 +1,7 @@
 import {action, makeAutoObservable} from "mobx"
 import {Region, Statistic, TimeIntervalType} from "../../services/model";
 import axios from "axios";
-import {GET_REGIONS_URL, GET_STATS_URL} from "../../services/urls";
+import {EXPORT_URL, GET_REGIONS_URL, GET_STATS_URL, IMPORT_REGIONS_URL, IMPORT_URL} from "../../services/urls";
 
 class WeatherStore {
 	regions: Region;
@@ -89,6 +89,39 @@ class WeatherStore {
 		const data = this.getStatsCommon();
 		const res = await axios.post(`${GET_STATS_URL}/${period}`, data);
 		this.stats = res.data;
+	}
+
+	async exportData(){
+		axios({
+			url: `${EXPORT_URL}`,
+			method: 'GET',
+			responseType: 'blob',
+		}).then((response) => {
+			const url = window.URL.createObjectURL(new Blob([response.data]));
+			const link = document.createElement('a');
+			link.href = url;
+			link.setAttribute('download', 'export.txt');
+			document.body.appendChild(link);
+			link.click();
+		});
+	}
+
+	async importWeatherData(period: string, data: FormData){
+		await axios.put(`${IMPORT_URL}/${period}`, data, {
+				headers: {
+					'Content-Type': 'application/JSON'
+				}
+			}
+		);
+	}
+
+	async importRegionsData(data: FormData){
+		await axios.put(`${IMPORT_REGIONS_URL}`, data, {
+				headers: {
+					'Content-Type': 'application/JSON'
+				}
+			}
+		);
 	}
 
 	@action
