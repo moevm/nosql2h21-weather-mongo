@@ -35,27 +35,30 @@ export class WeatherController {
   }
 
   @Post('/annual')
-  async getAnnualData(@Query('param') param: string, @Body() reqParamsDto: ReqParamsDto): Promise<Weather[]> {
+  async getAnnualData(@Query('param') param: string, @Query('skip') skip: number, @Query('limit') limit: number, @Body() reqParamsDto: ReqParamsDto): Promise<{total: number, data: Weather[]}> {
     console.log(reqParamsDto)
-    return this.weatherService.getAnnual(param, reqParamsDto);
+    return this.weatherService.getAnnual(param, reqParamsDto, skip, limit);
   }
   
   @Post('/seasonly')
-  async getSeasonlyData(@Query('param') param: string, @Body() reqParamsDto: ReqParamsDto): Promise<Weather[]> {
+  async getSeasonlyData(@Query('param') param: string, @Query('skip') skip: number, @Query('limit') limit: number, @Body() reqParamsDto: ReqParamsDto): Promise<{total: number, data: Weather[]}> {
     console.log(reqParamsDto)
-    return this.weatherService.getSeasonly(param, reqParamsDto);
+    return this.weatherService.getSeasonly(param, reqParamsDto, skip, limit);
   }
 
   @Post('/monthly')
-  async getMonthlyData(@Query('param') param: string, @Body() reqParamsDto: ReqParamsDto): Promise<Weather[]> {
+  async getMonthlyData(@Query('param') param: string, @Query('skip') skip: number, @Query('limit') limit: number, @Body() reqParamsDto: ReqParamsDto): Promise<{total: number, data: Weather[]}> {
     console.log(reqParamsDto)
-    return this.weatherService.getMonthly(param, reqParamsDto);
+    console.log("==============")
+    console.log(limit)
+    console.log(skip)
+    return this.weatherService.getMonthly(param, reqParamsDto, skip, limit);
   }
 
   @Post('/daily')
-  async getDailyData(@Query('param') param: string, @Body() reqParamsDto: ReqParamsDto): Promise<Weather[]> {
+  async getDailyData(@Query('param') param: string, @Query('skip') skip: number, @Query('limit') limit: number, @Body() reqParamsDto: ReqParamsDto): Promise<{total: number, data: Weather[]}> {
     console.log(reqParamsDto)
-    return this.weatherService.getDaily(param, reqParamsDto);
+    return this.weatherService.getDaily(param, reqParamsDto, skip, limit);
   }
 
   @Put('/import/annual')
