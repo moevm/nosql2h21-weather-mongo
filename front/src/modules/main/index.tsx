@@ -1,20 +1,29 @@
 import React, {useEffect, useState} from "react";
 import RegionList from "./components/regionList";
-import {Card, CardContent, CardActions, Button, Grid} from "@mui/material";
+import {Button, Card, CardActions, CardContent, Grid} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import TimeInterval from "../general/components/timeInterval";
 import TimePeriod from "../general/components/timePeriod";
 import {Space} from "../general/components/Space";
 import {observer} from "mobx-react";
+import {TimeIntervalType} from "../../services/model";
 
 const MainPage = ({weatherStore}) => {
 	const navigate = useNavigate();
 	const [isLoading, setIsLoading] = useState(false);
 
 	useEffect(() => {
-		setIsLoading(false)
+		setIsLoading(false);
 		weatherStore.getRegions().then(() => setIsLoading(true));
 	}, [weatherStore]);
+
+	const handleTest = () => {
+		weatherStore.setTimeInterval(TimeIntervalType.annual);
+		weatherStore.setRegion({name: 'London', region: 4});
+		weatherStore.setFrom(new Date(1990, 0, 1));
+		weatherStore.setTo(new Date(1993, 0, 1));
+		weatherStore.getStats().then(() => navigate('/stats'));
+	};
 
 	const handleSubmit = () => {
 		weatherStore.getStats().then(() => navigate('/stats'));
@@ -51,6 +60,7 @@ const MainPage = ({weatherStore}) => {
 						/>
 					</CardContent>
 					<CardActions style={{display: "flex", justifyContent: 'flex-end'}}>
+						<Button onClick={handleTest} style={{marginBottom: 10}}>Тест</Button>
 						<Button variant="contained" onClick={handleSubmit} style={{marginBottom: 10}}>Подробная
 							статистика</Button>
 					</CardActions>

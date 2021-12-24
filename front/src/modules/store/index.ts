@@ -12,7 +12,13 @@ class WeatherStore {
 	fromSeason: string = '';
 	toSeason: string = '';
 	stats: Statistic[];
+	statsForChart: Statistic[];
 	table: string = '1';
+	observation: string = 'tasmax';
+	total: number = 0;
+	skip: number = 0;
+	limit: number = 10;
+	page: number = 1;
 
 	constructor() {
 		makeAutoObservable(this);
@@ -24,6 +30,7 @@ class WeatherStore {
 		this.setToSeason = this.setToSeason.bind(this);
 		this.setTable = this.setTable.bind(this);
 		this.getFilteredData = this.getFilteredData.bind(this);
+		this.setObservation = this.setObservation.bind(this);
 	}
 
 	async getRegions() {
@@ -78,8 +85,9 @@ class WeatherStore {
 				...data,
 				...filter
 			};
-			const res = await axios.post(`${GET_STATS_URL}/${period}`, filteredData);
-			this.stats = res.data;
+			const res = await axios.post(`${GET_STATS_URL}/${period}?skip=${this.page-1}&limit=${this.limit}`, filteredData);
+			this.stats = res.data.data;
+			this.total = res.data.total;
 		}
 	}
 
@@ -87,8 +95,16 @@ class WeatherStore {
 	async getStats() {
 		const period = Object.keys(TimeIntervalType)[Object.values(TimeIntervalType).indexOf(this.timeInterval)];
 		const data = this.getStatsCommon();
-		const res = await axios.post(`${GET_STATS_URL}/${period}`, data);
-		this.stats = res.data;
+		const res = await axios.post(`${GET_STATS_URL}/${period}?skip=${this.page-1}&limit=${this.limit}`, data);
+		this.stats = res.data.data;
+		this.total = res.data.total;
+	}
+
+	async getStatsForChart() {
+		const period = Object.keys(TimeIntervalType)[Object.values(TimeIntervalType).indexOf(this.timeInterval)];
+		const data = this.getStatsCommon();
+		const res = await axios.post(`${GET_STATS_URL}/${period}?param=${this.observation}&skip=0&limit=1000000000000000000000`, data);
+		this.statsForChart = res.data.data;
 	}
 
 	async exportData(){
@@ -130,6 +146,11 @@ class WeatherStore {
 	}
 
 	@action
+	setObservation(observation: string) {
+		this.observation = observation;
+	}
+
+	@action
 	setTable(table: string) {
 		this.table = table;
 	}
@@ -157,6 +178,14 @@ class WeatherStore {
 	@action
 	setToSeason(toSeason: string) {
 		this.toSeason = toSeason;
+	}
+	@action
+	setPage(page: number) {
+		this.page = page;
+	}
+	@action
+	setSkip(skip: number) {
+		this.skip = skip;
 	}
 }
 

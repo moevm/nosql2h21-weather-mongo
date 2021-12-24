@@ -98,6 +98,7 @@ const TimePeriod = (props: TimePeriodProps) => {
 								value={from}
 								onChange={(value) => {
 									props.setFrom(value);
+									console.log(value)
 								}}
 								renderInput={(params) => <TextField {...params} />}
 							/>
