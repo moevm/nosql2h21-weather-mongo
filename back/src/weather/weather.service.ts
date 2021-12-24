@@ -20,7 +20,7 @@ export class WeatherService {
     return createdWeather.save();
   }
 
-  async getAnnual(param: string, reqParamsDto: ReqParamsDto): Promise<Weather[]> {
+  async getAnnual(param: string, reqParamsDto: ReqParamsDto, skip: number, limit: number): Promise<{total: number, data: Weather[]}> {
     reqParamsDto.year = { $gte: reqParamsDto.fromYear, 
                             $lte: reqParamsDto.toYear};
     const filter = Object.assign({ month: null, season: null, day: null }, reqParamsDto);
@@ -31,10 +31,13 @@ export class WeatherService {
     }
     console.log(filter)
     console.log(exclude)
-    return this.weatherModel.find(filter, exclude).exec();
+    var count = await this.weatherModel.find(filter, exclude).count().exec() 
+    var data = await this.weatherModel.find(filter, exclude).skip(skip*limit).exec();
+    data = data.slice(0, limit)
+    return {total: Math.ceil(count/limit), data: data};
   }
 
-  async getSeasonly(param: string, reqParamsDto: ReqParamsDto): Promise<Weather[]> {
+  async getSeasonly(param: string, reqParamsDto: ReqParamsDto, skip: number, limit: number): Promise<{total: number, data: Weather[]}> {
     reqParamsDto.season = { $gte: (reqParamsDto.fromYear - 1800) * 4 + reqParamsDto.fromSeason - 1, 
                             $lte: (reqParamsDto.toYear - 1800) * 4 + reqParamsDto.toSeason - 1 };
     const filter = Object.assign({ month: null, day: null, year: null }, reqParamsDto);
@@ -43,15 +46,17 @@ export class WeatherService {
       exclude = Object.assign({}, { year: 1, season: 1, month: 1, region: 1, day: 1, _id: 0, __v: 1})
       exclude = Object.assign({}, this.getParamField(param, 1), exclude)
     }
-    var data = await this.weatherModel.find(filter, exclude).exec();
+    var count = await this.weatherModel.find(filter, exclude).count().exec() 
+    var data = await this.weatherModel.find(filter, exclude).skip(skip*limit).exec();
+    data = data.slice(0, limit)
     data.map(el => {el.year = Math.floor(el.season/4) + 1800;
                     el.season = el.season%4 + 1;})
     console.log(filter)
     console.log(exclude)
-    return data;
+    return {total: Math.ceil(count/limit), data: data};
   }
 
-  async getMonthly(param: string, reqParamsDto: ReqParamsDto): Promise<Weather[]> {
+  async getMonthly(param: string, reqParamsDto: ReqParamsDto, skip: number, limit: number): Promise<{total: number, data: Weather[]}> {
     reqParamsDto.month = { $gte: (reqParamsDto.fromYear - 1800) * 12 + reqParamsDto.fromMonth - 1, 
                            $lte: (reqParamsDto.toYear - 1800) * 12 + reqParamsDto.toMonth - 1 };
     const filter = Object.assign({ season: null, day: null, year: null }, reqParamsDto);
@@ -60,15 +65,15 @@ export class WeatherService {
       exclude = Object.assign({}, { year: 1, season: 1, month: 1, region: 1, day: 1, _id: 0, __v: 1})
       exclude = Object.assign({}, this.getParamField(param, 1), exclude)
     }
-    var data = await this.weatherModel.find(filter, exclude).exec();
+    var count = await this.weatherModel.find(filter, exclude).count().exec() 
+    var data = await this.weatherModel.find(filter, exclude).skip(skip*limit).exec();
+    data = data.slice(0, limit)
     data.map(el => {el.year = Math.floor(el.month/12) + 1800;
     el.month = el.month%12 + 1;})
-    console.log(filter)
-    console.log(exclude)
-    return data;
+    return {total: Math.ceil(count/limit), data: data};
   }
 
-  async getDaily(param: string, reqParamsDto: ReqParamsDto): Promise<Weather[]> {
+  async getDaily(param: string, reqParamsDto: ReqParamsDto, skip: number, limit: number): Promise<{total: number, data: Weather[]}> {
     const init = new Date(1800, 0, 1).getTime()
     const dayFrom = new Date(reqParamsDto.fromYear, reqParamsDto.fromMonth-1, reqParamsDto.fromDay+1).getTime()
     const dayTo = new Date(reqParamsDto.toYear, reqParamsDto.toMonth-1, reqParamsDto.toDay+1).getTime()
@@ -84,14 +89,16 @@ export class WeatherService {
       exclude = Object.assign({}, { year: 1, season: 1, month: 1, region: 1, day: 1, _id: 0, __v: 1})
       exclude = Object.assign({}, this.getParamField(param, 1), exclude)
     }
-    var data = await this.weatherModel.find(filter, exclude).exec();
+    var count = await this.weatherModel.find(filter, exclude).count().exec() 
+    var data = await this.weatherModel.find(filter, exclude).skip(skip*limit).exec();
+    data = data.slice(0, limit)
     data.map(el => { const time = new Date(1800, 0, el.day)
       el.year = time.getFullYear();
       el.month = time.getMonth()+1;
       el.day = time.getDate();})
     console.log(filter)
     console.log(exclude)
-    return data;
+    return {total: Math.ceil(count/limit), data: data};
   }
 
   async findAll(): Promise<Weather[]> {
