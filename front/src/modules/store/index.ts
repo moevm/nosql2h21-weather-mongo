@@ -12,7 +12,9 @@ class WeatherStore {
 	fromSeason: string = '';
 	toSeason: string = '';
 	stats: Statistic[];
+	statsForChart: Statistic[];
 	table: string = '1';
+	observation: string = 'tasmax';
 
 	constructor() {
 		makeAutoObservable(this);
@@ -24,6 +26,7 @@ class WeatherStore {
 		this.setToSeason = this.setToSeason.bind(this);
 		this.setTable = this.setTable.bind(this);
 		this.getFilteredData = this.getFilteredData.bind(this);
+		this.setObservation = this.setObservation.bind(this);
 	}
 
 	async getRegions() {
@@ -91,6 +94,13 @@ class WeatherStore {
 		this.stats = res.data;
 	}
 
+	async getStatsForChart() {
+		const period = Object.keys(TimeIntervalType)[Object.values(TimeIntervalType).indexOf(this.timeInterval)];
+		const data = this.getStatsCommon();
+		const res = await axios.post(`${GET_STATS_URL}/${period}?param=${this.observation}`, data);
+		this.statsForChart = res.data;
+	}
+
 	async exportData(){
 		axios({
 			url: `${EXPORT_URL}`,
@@ -127,6 +137,11 @@ class WeatherStore {
 	@action
 	setRegion(region: Region) {
 		this.region = region;
+	}
+
+	@action
+	setObservation(observation: string) {
+		this.observation = observation;
 	}
 
 	@action

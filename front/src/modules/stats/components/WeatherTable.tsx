@@ -60,10 +60,10 @@ const WeatherTable = ({stats, timeInterval, table}) => {
 									{getDate(stat)}
 								</TableCell>
 								<TableCell>
-									{stat.tasmax}
+									{stat.tasmax && Number(stat.tasmax).toFixed(2)}
 								</TableCell>
-								<TableCell>{stat.tasmin}</TableCell>
-								<TableCell>{stat.rainfall}</TableCell>
+								<TableCell>{stat.tasmin && Number(stat.tasmin).toFixed(2)}</TableCell>
+								<TableCell>{stat.rainfall && Number(stat.rainfall).toFixed(2)}</TableCell>
 							</TableRow>
 						))}
 					</TableBody>
@@ -96,11 +96,11 @@ const WeatherTable = ({stats, timeInterval, table}) => {
 												{getDate(stat)}
 											</TableCell>
 											<TableCell>
-												{stat.tas}
+												{stat.tas && Number(stat.tas).toFixed(2)}
 											</TableCell>
-											<TableCell>{stat.sun}</TableCell>
-											<TableCell>{stat.sfcWind}</TableCell>
-											<TableCell>{stat.psl}</TableCell>
+											<TableCell>{stat.sun && Number(stat.sun).toFixed(2) }</TableCell>
+											<TableCell>{stat.sfcWind && Number(stat.sfcWind).toFixed(2) }</TableCell>
+											<TableCell>{stat.psl && Number(stat.psl).toFixed(2)}</TableCell>
 										</TableRow>
 									))}
 								</TableBody>
@@ -129,13 +129,13 @@ const WeatherTable = ({stats, timeInterval, table}) => {
 												{getDate(stat)}
 											</TableCell>
 											<TableCell>
-												{stat.hurs}
+												{stat.hurs && Number(stat.hurs).toFixed(2)}
 											</TableCell>
 											<TableCell>
-												{stat.pv}
+												{stat.pv && Number(stat.pv).toFixed(2)}
 											</TableCell>
-											<TableCell>{stat.groundfrost}</TableCell>
-											<TableCell>{stat.snowLying}</TableCell>
+											<TableCell>{stat.groundfrost && Number(stat.groundfrost).toFixed(2)}</TableCell>
+											<TableCell>{stat.snowLying && Number(stat.snowLying).toFixed(2)}</TableCell>
 										</TableRow>
 									))}
 								</TableBody>
@@ -148,6 +148,6 @@ const WeatherTable = ({stats, timeInterval, table}) => {
 
 		</>
 	);
-}
+};
 
 export default observer(WeatherTable);
