@@ -90,7 +90,7 @@ class WeatherStore {
 	async getStats() {
 		const period = Object.keys(TimeIntervalType)[Object.values(TimeIntervalType).indexOf(this.timeInterval)];
 		const data = this.getStatsCommon();
-		const res = await axios.post(`${GET_STATS_URL}/${period}`, data);
+		const res = await axios.post(`${GET_STATS_URL}/${period}?skip=0&limit=10`, data);
 		this.stats = res.data;
 	}
 

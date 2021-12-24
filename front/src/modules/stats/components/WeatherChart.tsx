@@ -8,6 +8,7 @@ import {observer} from "mobx-react";
 let data = [];
 const WeatherChart =  ({weatherStore}) => {
 	const [isData, setIsData] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
 	const madeSeason = (season: number) => {
 		if(season === 1){
 			return "Зима";
@@ -21,6 +22,7 @@ const WeatherChart =  ({weatherStore}) => {
 	};
 	useEffect(()=>{
 		data = [];
+		setIsLoading(true);
 		weatherStore.getStatsForChart().then(() => {
 			if(weatherStore.statsForChart[0] && weatherStore.observation in weatherStore.statsForChart[0]){
 				setIsData(true);
@@ -58,10 +60,11 @@ const WeatherChart =  ({weatherStore}) => {
 			}else{
 				setIsData(false);
 			}
+			setIsLoading(false);
 		})
-	}, [weatherStore.observation, weatherStore.statsForChart]);
+	}, [weatherStore.observation]);
 
-	if(isData){
+	if(isData && !isLoading){
 		return (
 			<Paper>
 				<Chart
