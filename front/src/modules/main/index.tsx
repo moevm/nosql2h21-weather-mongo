@@ -23,12 +23,10 @@ const MainPage = ({weatherStore}) => {
 		weatherStore.setFrom(new Date(1990, 0, 1));
 		weatherStore.setTo(new Date(1993, 0, 1));
 		weatherStore.getStats().then(() => navigate('/stats'));
-		//Promise.all([weatherStore.getStats(), weatherStore.getStatsForChart()]).then(() => navigate('/stats'));
 	};
 
 	const handleSubmit = () => {
 		weatherStore.getStats().then(() => navigate('/stats'));
-		//Promise.all([weatherStore.getStats(), weatherStore.getStatsForChart()]).then(() => navigate('/stats'));
 	};
 
 	if (!isLoading) {

@@ -3,7 +3,7 @@ import TimePeriod from "../general/components/timePeriod";
 import TimeInterval from "../general/components/timeInterval";
 import WeatherTable from "./components/WeatherTable";
 import FilterTable from "./components/FilterTable";
-import {Grid, Typography} from "@mui/material";
+import {Grid, Pagination, Typography} from "@mui/material";
 import {Space} from "../general/components/Space";
 import {observer} from "mobx-react";
 import TableList from "./components/tableList";
@@ -12,6 +12,12 @@ import Box from "@mui/material/Box";
 import FilterChart from "./components/FilterChart";
 
 const StatsPage = ({weatherStore}) => {
+	const handleChangePage = (event, value) => {
+		weatherStore.setPage(value);
+		weatherStore.setSkip((value - 1) * weatherStore.limit);
+		weatherStore.getStats();
+	};
+
 	return (
 		<Grid
 			container
@@ -48,6 +54,8 @@ const StatsPage = ({weatherStore}) => {
 			<Space size={5}/>
 			<FilterTable weatherStore={weatherStore} table={weatherStore.table} getStats={weatherStore.getStats} getFilteredData={weatherStore.getFilteredData}/>
 			<Space size={5}/>
+			<Pagination count={weatherStore.total} page={weatherStore.page} onChange={handleChangePage}/>
+			<Space size={3}/>
 			<WeatherTable stats = {weatherStore.stats} timeInterval = {weatherStore.timeInterval} table={weatherStore.table}/>
 		</Grid>
 	);

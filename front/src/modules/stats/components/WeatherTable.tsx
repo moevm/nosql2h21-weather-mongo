@@ -60,9 +60,9 @@ const WeatherTable = ({stats, timeInterval, table}) => {
 									{getDate(stat)}
 								</TableCell>
 								<TableCell>
-									{stat.tasmax && Number(stat.tasmax).toFixed(2)}
+									{stat.tasmin && Number(stat.tasmin).toFixed(2)}
 								</TableCell>
-								<TableCell>{stat.tasmin && Number(stat.tasmin).toFixed(2)}</TableCell>
+								<TableCell>{stat.tasmax && Number(stat.tasmax).toFixed(2)}</TableCell>
 								<TableCell>{stat.rainfall && Number(stat.rainfall).toFixed(2)}</TableCell>
 							</TableRow>
 						))}
