@@ -17,7 +17,7 @@ const StatsPage = ({weatherStore}) => {
 			container
 			direction="column"
 			alignItems="flex-start"
-			style={{maxWidth: 1000, marginLeft: 100}}
+			style={{maxWidth: 1200, marginLeft: 100}}
 		>
 			<Space size={5}/>
 			<Typography variant="h6">
@@ -38,19 +38,11 @@ const StatsPage = ({weatherStore}) => {
 				setToSeason={weatherStore.setToSeason}
 			/>
 			<Space size={5}/>
-			{/*<Grid*/}
-						{/*item*/}
-						{/*container*/}
-						{/*direction="row"*/}
-						{/*justifyContent="space-around"*/}
-						{/*style={{width: 1000}}*/}
-			{/*>*/}
 				<FilterChart setObservation={weatherStore.setObservation}/>
 			<Space size={5}/>
 				<Box width="100%">
 					<WeatherChart weatherStore={weatherStore}/>
 				</Box>
-			{/*</Grid>*/}
 			<Space size={5}/>
 			<TableList weatherStore = {weatherStore} table={weatherStore.table} setTable={weatherStore.setTable}/>
 			<Space size={5}/>

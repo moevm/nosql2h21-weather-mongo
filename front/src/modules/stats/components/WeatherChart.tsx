@@ -35,7 +35,7 @@ const WeatherChart =  ({weatherStore}) => {
 					weatherStore.statsForChart.map((statsForChart) => {
 						const season = madeSeason(statsForChart.season);
 						data.push({
-							argument: season +' '+ statsForChart.year,
+							argument: season +'\n'+ statsForChart.year,
 							lineValue: statsForChart[weatherStore.observation]
 						})
 					})
